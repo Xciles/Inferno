@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Inferno.BurnApi.Data;
 using Inferno.BurnApi.Twiter;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -28,6 +26,11 @@ namespace Inferno.BurnApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var conn = Configuration.GetConnectionString("InfernoString");
+
+            services.AddDbContext<InfernoDbContext>(options =>
+                options.UseSqlServer(conn));
+
             // Add framework services.
             services.AddMvc();
         }
@@ -45,7 +48,6 @@ namespace Inferno.BurnApi
 
         private void InitTwitter()
         {
-            Tweetinvi.Auth.SetUserCredentials("xntbONdOxNF7OPnbadPccUtFn", "dRjqFYRbYtguoZRslgfleldpcpmGsYfT9maBLdH99CqZRNdHoo", "858290769832140801-yPRAOfPfEZnG3rO7KITuzBip2B8aPju", "awRCMwKkMw49UYsrJbajxv0ZfzqbK50pv7cPxcEopsMtt");
             StreamListener.Init();
         }
     }
