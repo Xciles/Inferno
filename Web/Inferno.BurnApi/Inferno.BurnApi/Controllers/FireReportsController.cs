@@ -16,13 +16,13 @@ namespace Inferno.BurnApi.Controllers
 
         public FireReportsController(InfernoDbContext context)
         {
-            _context = context;    
+            _context = context;
         }
 
         // GET: FireReports
         public async Task<IActionResult> Index()
         {
-            var infernoDbContext = _context.FireReports.Include(f => f.DroneAssignment);
+            var infernoDbContext = _context.FireReports;
             return View(await infernoDbContext.ToListAsync());
         }
 
@@ -35,7 +35,6 @@ namespace Inferno.BurnApi.Controllers
             }
 
             var fireReport = await _context.FireReports
-                .Include(f => f.DroneAssignment)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (fireReport == null)
             {
@@ -65,7 +64,6 @@ namespace Inferno.BurnApi.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["DroneAssignmentId"] = new SelectList(_context.DroneAssignments, "Id", "Id", fireReport.DroneAssignmentId);
             return View(fireReport);
         }
 
@@ -82,7 +80,6 @@ namespace Inferno.BurnApi.Controllers
             {
                 return NotFound();
             }
-            ViewData["DroneAssignmentId"] = new SelectList(_context.DroneAssignments, "Id", "Id", fireReport.DroneAssignmentId);
             return View(fireReport);
         }
 
@@ -118,7 +115,6 @@ namespace Inferno.BurnApi.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["DroneAssignmentId"] = new SelectList(_context.DroneAssignments, "Id", "Id", fireReport.DroneAssignmentId);
             return View(fireReport);
         }
 
@@ -131,7 +127,7 @@ namespace Inferno.BurnApi.Controllers
             }
 
             var fireReport = await _context.FireReports
-                .Include(f => f.DroneAssignment)
+
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (fireReport == null)
             {

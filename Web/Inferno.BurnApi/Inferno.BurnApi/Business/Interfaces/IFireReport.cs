@@ -9,5 +9,6 @@ namespace Inferno.BurnApi.Business.Interfaces
     {
         Task AddReport(Domain.FireReport report);
         Task<Domain.FireReport> GetLatestFireReport();
+        Task<IList<Domain.FireReport>> GetAllLastHour();
     }
 }

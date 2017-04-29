@@ -13,30 +13,30 @@ namespace Inferno.BurnApi.Domain
         public int Id { get; set; }
 
         [NotMapped]
-        public Coordinates BaseLocation
+        public Coordinate BaseLocation
         {
             get
             {
                 if (String.IsNullOrWhiteSpace(BaseLocationAsJson))
                     return null;
 
-                return JsonConvert.DeserializeObject<Coordinates>(BaseLocationAsJson);
+                return JsonConvert.DeserializeObject<Coordinate>(BaseLocationAsJson);
             }
-            set { JsonConvert.SerializeObject(value); }
+            set { BaseLocationAsJson = JsonConvert.SerializeObject(value); }
         }
         public string BaseLocationAsJson { get; set; }
 
         [NotMapped]
-        public Coordinates CurrentLocation
+        public Coordinate CurrentLocation
         {
             get
             {
                 if (String.IsNullOrWhiteSpace(BaseLocationAsJson))
                     return null;
 
-                return JsonConvert.DeserializeObject<Coordinates>(BaseLocationAsJson);
+                return JsonConvert.DeserializeObject<Coordinate>(BaseLocationAsJson);
             }
-            set { JsonConvert.SerializeObject(value); }
+            set { CurrentLocationAsJson = JsonConvert.SerializeObject(value); }
         }
         public string CurrentLocationAsJson { get; set; }
 
@@ -44,7 +44,7 @@ namespace Inferno.BurnApi.Domain
         public bool Available { get; set; }
 
 
-        public int ActiveDroneAssignmentId { get; set; }
+        public int? ActiveDroneAssignmentId { get; set; }
         public DroneAssignment ActiveDroneAssignment { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Inferno.BurnApi.Data;
+﻿using Inferno.BurnApi.Business;
+using Inferno.BurnApi.Business.Interfaces;
+using Inferno.BurnApi.Data;
 using Inferno.BurnApi.Twiter;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,6 +33,7 @@ namespace Inferno.BurnApi
 
             // Add framework services.
             services.AddMvc();
+            services.AddTransient<IFireReport, FireReport>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,14 +42,21 @@ namespace Inferno.BurnApi
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //else
+            //{
+            //    app.UseExceptionHandler("/Home/Error");
+            //}
+
+            app.UseDeveloperExceptionPage();
+
+            app.UseCors(builder =>
+                builder.AllowAnyOrigin()
+                //builder.WithOrigins("http://quincy.com")
+                );
 
             app.UseMvc(routes =>
             {
@@ -55,7 +65,7 @@ namespace Inferno.BurnApi
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            StreamListener.Init().ConfigureAwait(false);
+            StreamListener.Init(app.ApplicationServices).ConfigureAwait(false);
         }
     }
 }
