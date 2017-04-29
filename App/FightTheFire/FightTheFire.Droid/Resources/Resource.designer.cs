@@ -122,7 +122,7 @@ namespace FightTheFire.Droid
 		{
 			
 			// aapt resource value: 0x7f040000
-			public const int FirstView = 2130968576;
+			public const int ReportView = 2130968576;
 			
 			// aapt resource value: 0x7f040001
 			public const int SplashScreen = 2130968577;

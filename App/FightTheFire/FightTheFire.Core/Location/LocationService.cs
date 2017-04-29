@@ -26,6 +26,25 @@ namespace FightTheFire.Core.Location
 			OnLocation(_watcher.CurrentLocation);
 		}
 
+		public MvxGeoLocation LastLocation()
+		{
+			if (_watcher.Started)
+			{
+				return _watcher.CurrentLocation;
+			}
+			else
+			{
+				var options = new MvxLocationOptions()
+				{
+					Accuracy = MvxLocationAccuracy.Fine,
+					MovementThresholdInM = 5,
+					TrackingMode = MvxLocationTrackingMode.Foreground
+				};
+				_watcher.Start(options, OnLocation, OnError);
+				return _watcher.CurrentLocation;
+			}
+		}
+
 		private void OnLocation(MvxGeoLocation location)
 		{
 			var message = new LocationMessage(this, location.Coordinates.Latitude, location.Coordinates.Longitude);
