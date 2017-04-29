@@ -9,9 +9,10 @@ using Inferno.BurnApi.Domain.Enums;
 namespace Inferno.BurnApi.Migrations
 {
     [DbContext(typeof(InfernoDbContext))]
-    partial class InfernoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170429163923_Basics")]
+    partial class Basics
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")
