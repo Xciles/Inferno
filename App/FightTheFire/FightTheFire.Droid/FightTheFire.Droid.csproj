@@ -101,6 +101,12 @@
     <Reference Include="MvvmCross.Plugins.ThreadUtils.Droid">
       <HintPath>..\packages\MvvmCross.Plugin.ThreadUtils.4.4.0\lib\MonoAndroid\MvvmCross.Plugins.ThreadUtils.Droid.dll</HintPath>
     </Reference>
+    <Reference Include="Plugin.Compass.Abstractions">
+      <HintPath>..\packages\Plugin.Compass.2.0.0\lib\MonoAndroid10\Plugin.Compass.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Compass">
+      <HintPath>..\packages\Plugin.Compass.2.0.0\lib\MonoAndroid10\Plugin.Compass.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.cs" />
