@@ -26,10 +26,8 @@ namespace Inferno.BurnApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var conn = Configuration.GetConnectionString("InfernoString");
-
             services.AddDbContext<InfernoDbContext>(options =>
-                options.UseSqlServer(conn));
+                options.UseSqlServer(Configuration.GetConnectionString("InfernoString")));
 
             // Add framework services.
             services.AddMvc();
@@ -43,12 +41,7 @@ namespace Inferno.BurnApi
 
             app.UseMvc();
 
-            InitTwitter();
-        }
-
-        private void InitTwitter()
-        {
-            StreamListener.Init();
+            StreamListener.Init().ConfigureAwait(false);
         }
     }
 }
