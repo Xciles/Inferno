@@ -35,6 +35,11 @@
     <Compile Include="Messages\LocationMessage.cs" />
     <Compile Include="Location\Interfaces\ILocationService.cs" />
     <Compile Include="Utils\HeadingHelper.cs" />
+    <Compile Include="Services\AlertService.cs" />
+    <Compile Include="Services\Interfaces\IAlertService.cs" />
+    <Compile Include="Domain\Enums\EFireSeverity.cs" />
+    <Compile Include="Domain\Coordinate.cs" />
+    <Compile Include="Domain\FireReport.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MvvmCross.Platform">
@@ -85,6 +90,10 @@
     <Folder Include="Messages\" />
     <Folder Include="Location\Interfaces\" />
     <Folder Include="Utils\" />
+    <Folder Include="Services\" />
+    <Folder Include="Services\Interfaces\" />
+    <Folder Include="Domain\" />
+    <Folder Include="Domain\Enums\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>

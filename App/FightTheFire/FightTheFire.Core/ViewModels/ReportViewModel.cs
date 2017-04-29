@@ -7,6 +7,9 @@ using FightTheFire.Core.Messages;
 using MvvmCross.Plugins.Location;
 using Plugin.Compass;
 using Utils;
+using System.Windows.Input;
+using Services.Interfaces;
+using Domain.Enums;
 
 namespace FightTheFire.Core.ViewModels
 {
@@ -54,6 +57,16 @@ namespace FightTheFire.Core.ViewModels
 			}
 		}
 
+		private string _description;
+		public string Description
+		{
+			get { return _description; }
+			set
+			{
+				SetProperty(ref _description, value);
+
+			}
+
 		private double _heading;
 		public double Heading
 		{
@@ -70,6 +83,17 @@ namespace FightTheFire.Core.ViewModels
 			get
 			{
 				return HeadingHelper.GetWinddirection(Heading);
+			}
+		}
+
+		public ICommand ReportFireCommand
+		{
+			get
+			{
+				return new MvxCommand(async () =>
+					{
+						var result = await Mvx.Resolve<IAlertService>().AlertForFire(Lat, Lng, EFireSeverity.LargerThan100LessThan500Meters, Description);
+					});
 			}
 		}
 	}
