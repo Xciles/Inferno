@@ -14,26 +14,43 @@ namespace Inferno.BurnApi.Domain
     {
         public int Id { get; set; }
 
+        public string Description { get; set; }
+
         [NotMapped]
-        public Coordinates Coordinates
+        public Coordinate Coordinates
         {
             get
             {
                 if (String.IsNullOrWhiteSpace(CoordinateAsJson))
                     return null;
 
-                return JsonConvert.DeserializeObject<Coordinates>(CoordinateAsJson);
+                return JsonConvert.DeserializeObject<Coordinate>(CoordinateAsJson);
             }
-            set { JsonConvert.SerializeObject(value); }
+            set { CoordinateAsJson = JsonConvert.SerializeObject(value); }
         }
         public string CoordinateAsJson { get; set; }
+
+        [NotMapped]
+        public IList<Coordinate> BoundingBox
+        {
+            get
+            {
+                if (String.IsNullOrWhiteSpace(BoundingboxAsJson))
+                    return null;
+
+                return JsonConvert.DeserializeObject<IList<Coordinate>>(BoundingboxAsJson);
+            }
+
+            set { BoundingboxAsJson = JsonConvert.SerializeObject(value); }
+        }
+
+        public string BoundingboxAsJson { get; set; }
 
         public EFireSeverity FireSeverity { get; set; }
         public DateTime TimeStamp { get; set; }
 
-
-        public DroneAssignment DroneAssignment { get; set; }
-        public int DroneAssignmentId { get; set; }
+        //public DroneAssignment DroneAssignment { get; set; }
+        //public int? DroneAssignmentId { get; set; }
 
     }
 }

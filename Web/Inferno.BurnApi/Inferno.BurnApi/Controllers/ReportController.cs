@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Inferno.BurnApi.Business.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Inferno.BurnApi.Data;
+using Inferno.BurnApi.Domain;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Inferno.BurnApi.Controllers
@@ -13,23 +14,34 @@ namespace Inferno.BurnApi.Controllers
     [Route("api/FireReport")]
     public class FireReportController : Controller
     {
-        private readonly InfernoDbContext _context;
         private readonly IFireReport _fireReport;
 
         public FireReportController(InfernoDbContext context, IFireReport fireReport)
         {
-            _context = context;
             _fireReport = fireReport;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Fire([FromBody]Domain.FireReport report)
+        public async Task<IActionResult> Fire([FromBody]FireReport report)
         {
             if (report != null && report.Coordinates != null)
             {
+                report.BoundingBox = new List<Coordinate>()
+                {
+                    report.Coordinates,
+                    report.Coordinates,
+                    report.Coordinates,
+                    report.Coordinates
+                };
                 await _fireReport.AddReport(report);
             }
             return Ok("Burn baby burn!");
+        }
+
+        [HttpGet]
+        public async Task<IList<FireReport>> GetAll()
+        {
+            return await _fireReport.GetAllLastHour();
         }
     }
 }

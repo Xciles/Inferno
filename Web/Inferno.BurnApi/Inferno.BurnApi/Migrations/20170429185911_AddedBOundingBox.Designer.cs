@@ -9,9 +9,10 @@ using Inferno.BurnApi.Domain.Enums;
 namespace Inferno.BurnApi.Migrations
 {
     [DbContext(typeof(InfernoDbContext))]
-    partial class InfernoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170429185911_AddedBOundingBox")]
+    partial class AddedBOundingBox
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")
@@ -22,7 +23,7 @@ namespace Inferno.BurnApi.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("ActiveDroneAssignmentId");
+                    b.Property<int>("ActiveDroneAssignmentId");
 
                     b.Property<bool>("Available");
 
@@ -51,13 +52,9 @@ namespace Inferno.BurnApi.Migrations
 
                     b.Property<DateTime?>("FinishedAt");
 
-                    b.Property<int?>("FireReportId");
-
                     b.Property<int>("Urgency");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FireReportId");
 
                     b.ToTable("DroneAssignments");
                 });
@@ -73,11 +70,16 @@ namespace Inferno.BurnApi.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<int>("DroneAssignmentId");
+
                     b.Property<int>("FireSeverity");
 
                     b.Property<DateTime>("TimeStamp");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DroneAssignmentId")
+                        .IsUnique();
 
                     b.ToTable("FireReports");
                 });
@@ -86,14 +88,16 @@ namespace Inferno.BurnApi.Migrations
                 {
                     b.HasOne("Inferno.BurnApi.Domain.DroneAssignment", "ActiveDroneAssignment")
                         .WithOne("Drone")
-                        .HasForeignKey("Inferno.BurnApi.Domain.Drone", "ActiveDroneAssignmentId");
+                        .HasForeignKey("Inferno.BurnApi.Domain.Drone", "ActiveDroneAssignmentId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Inferno.BurnApi.Domain.DroneAssignment", b =>
+            modelBuilder.Entity("Inferno.BurnApi.Domain.FireReport", b =>
                 {
-                    b.HasOne("Inferno.BurnApi.Domain.FireReport", "FireReport")
-                        .WithMany()
-                        .HasForeignKey("FireReportId");
+                    b.HasOne("Inferno.BurnApi.Domain.DroneAssignment", "DroneAssignment")
+                        .WithOne("FireReport")
+                        .HasForeignKey("Inferno.BurnApi.Domain.FireReport", "DroneAssignmentId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
         }
     }
