@@ -8,11 +8,11 @@ using MvvmCross.Plugins.Location;
 
 namespace FightTheFire.Core.ViewModels
 {
-	public class FirstViewModel : MvxViewModel
+	public class ReportViewModel : MvxViewModel
 	{
 		private readonly MvxSubscriptionToken _token;
 
-		public FirstViewModel(IMvxLocationWatcher watcher)
+		public ReportViewModel(IMvxLocationWatcher watcher)
 		{
 			var messenger = Mvx.Resolve<IMvxMessenger>();
 			_token = messenger.Subscribe<LocationMessage>(OnLocationMessage);
