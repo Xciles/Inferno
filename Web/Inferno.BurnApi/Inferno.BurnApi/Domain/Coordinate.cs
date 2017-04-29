@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Tweetinvi.Models;
+
+namespace Inferno.BurnApi.Domain
+{
+    public class Coordinate : ICoordinates
+    {
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
+    }
+}

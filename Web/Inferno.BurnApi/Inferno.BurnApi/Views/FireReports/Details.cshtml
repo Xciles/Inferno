@@ -1,0 +1,42 @@
+@model Inferno.BurnApi.Domain.FireReport
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>FireReport</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CoordinateAsJson)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CoordinateAsJson)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FireSeverity)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FireSeverity)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeStamp)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TimeStamp)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DroneAssignment)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DroneAssignment.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
