@@ -7,6 +7,7 @@ using FightTheFire.Core.Messages;
 using MvvmCross.Platform;
 using MvvmCross.Plugins.Messenger;
 using Android.Content;
+using MvvmCross.Droid.Platform;
 
 namespace FightTheFire.Droid.Views
 {
@@ -31,6 +32,7 @@ namespace FightTheFire.Droid.Views
 		{
 			base.OnResume();
 			_isLive = true;
+			_shownDangerNotify = false;
 		}
 
 		protected override void OnPause()
@@ -46,11 +48,11 @@ namespace FightTheFire.Droid.Views
 			{
 				if (!_isLive)
 				{
-					// Instantiate the builder and set notification elements
+					// Instantiate the builder and set notification elements, including pending intent:
 					Notification.Builder builder = new Notification.Builder(this)
 						.SetContentTitle("Danger! Fire!")
 						.SetContentText("Please get out of the area, fire in the " + danger.HeadingString + "!")
-						.SetSmallIcon(Resource.Drawable.notification_template_icon_low_bg);
+						.SetSmallIcon(Resource.Mipmap.Icon);
 
 					// Build the notification:
 					Notification notification = builder.Build();

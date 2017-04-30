@@ -40,7 +40,7 @@ namespace FightTheFire.Core.ViewModels
 			_timer = new Utils.Timer(async (obj) =>
 			{
 				await CheckDanger().ConfigureAwait(false);
-			}, null, 5000, 15000);
+			}, null, 15000, 15000);
 		}
 
 		private void OnLocationMessage(LocationMessage locationMessage)
