@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GeoCoordinatePortable;
 using Inferno.BurnApi.Business.Interfaces;
 using Inferno.BurnApi.Domain;
 using Inferno.BurnApi.Domain.Enums;
+using Inferno.BurnApi.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Tweetinvi;
@@ -58,12 +60,8 @@ namespace Inferno.BurnApi.Twiter
 
             if (args.Tweet.Place?.BoundingBox?.Coordinates != null)
             {
-                report.BoundingBox = args.Tweet.Place.BoundingBox.Coordinates.Select(x => new Coordinate(x)).ToList();
-                report.Coordinates = new Coordinate()
-                {
-                    Latitude = args.Tweet.Place.BoundingBox.Coordinates.Average(x => x.Latitude),
-                    Longitude = args.Tweet.Place.BoundingBox.Coordinates.Average(x => x.Longitude),
-                };
+                report.BoundingBox = args.Tweet.Place.BoundingBox.Coordinates.Select(x => x.ToGeoCoordinate()).ToList();
+                report.Coordinates = new GeoCoordinate(args.Tweet.Place.BoundingBox.Coordinates.Average(x => x.Latitude), args.Tweet.Place.BoundingBox.Coordinates.Average(x => x.Longitude));
             }
 
             Console.WriteLine($"Trying to store tweet {JsonConvert.SerializeObject(report)}");

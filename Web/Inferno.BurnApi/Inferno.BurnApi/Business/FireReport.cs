@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GeoCoordinatePortable;
 using Inferno.BurnApi.Business.Interfaces;
 using Inferno.BurnApi.Data;
 using Microsoft.EntityFrameworkCore;
@@ -34,11 +35,20 @@ namespace Inferno.BurnApi.Business
             return report;
         }
 
+        public async Task<Domain.FireReport> GetClosestFireReport(GeoCoordinate coord)
+        {
+            var report = await (from f in _context.Set<Domain.FireReport>()
+                                 orderby f.Coordinates.GetDistanceTo(coord)
+                                 where f.TimeStamp.ToUniversalTime() > DateTime.UtcNow.AddHours(-2)
+                                 select f).FirstOrDefaultAsync();
+            return report;
+        }
+
         public async Task<IList<Domain.FireReport>> GetAllLastHour()
         {
             //var reports = await (from f in _context.Set<Domain.FireReport>()
             //        .Include(x => x.DroneAssignment)
-            //                    where f.TimeStamp > DateTime.UtcNow.AddHours(-1)
+            //                    where f.TimeStamp.ToUniversalTime() > DateTime.UtcNow.AddHours(-1)
             //    select f).ToListAsync();
 
             var reports = await _context.Set<Domain.FireReport>().ToListAsync();
