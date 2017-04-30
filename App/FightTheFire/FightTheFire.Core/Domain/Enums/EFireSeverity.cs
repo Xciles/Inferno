@@ -3,7 +3,7 @@ namespace Domain.Enums
 {
 	public enum EFireSeverity
 	{
-		Unkown = 0,
+		Unknown = 0,
 		LessThan10Meters = 1,
 		LargerThan10LessThan100Meters = 2,
 		LargerThan100LessThan500Meters = 3,

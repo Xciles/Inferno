@@ -10,6 +10,8 @@ using Utils;
 using System.Windows.Input;
 using Services.Interfaces;
 using Domain.Enums;
+using MvvmCross.Platform.Core;
+using Acr.UserDialogs;
 
 namespace FightTheFire.Core.ViewModels
 {
@@ -66,6 +68,41 @@ namespace FightTheFire.Core.ViewModels
 				SetProperty(ref _description, value);
 
 			}
+		}
+
+		private int _distance;
+		public int Distance
+		{
+			get { return _distance; }
+			set
+			{
+				SetProperty(ref _distance, value);
+				RaisePropertyChanged(() => DistanceAsKm);
+			}
+		}
+
+		private int _severityBar;
+		public int SeverityBar
+		{
+			get { return _severityBar; }
+			set
+			{
+				SetProperty(ref _severityBar, value);
+				RaisePropertyChanged(() => SeverityAsString);
+
+			}
+		}
+
+		private EFireSeverity _severity;
+		public EFireSeverity Severity
+		{
+			get { return _severity; }
+			set
+			{
+				SetProperty(ref _severity, value);
+
+			}
+		}
 
 		private double _heading;
 		public double Heading
@@ -86,13 +123,86 @@ namespace FightTheFire.Core.ViewModels
 			}
 		}
 
+		public string DistanceAsKm
+		{
+			get
+			{
+				if (Distance < 20)
+				{
+					return "The floor is lava!"; ;
+				}
+				else if (Distance >= 20 && Distance < 60)
+				{
+					return "Between 10 and 500 meters away"; ;
+				}
+				else if (Distance >= 60 && Distance < 80)
+				{
+					return "Between 500 and 2000 meters away";
+				}
+				else if (Distance >= 80)
+				{
+					return "More than 2 kilometers away";
+				}
+				return "";
+			}
+		}
+
+		public string SeverityAsString
+		{
+			get
+			{
+				if (SeverityBar < 20)
+				{
+					Severity = EFireSeverity.LessThan10Meters;
+					return "Less than 10 meters across";
+				}
+				else if (SeverityBar >= 20 && SeverityBar < 40)
+				{
+					Severity = EFireSeverity.LargerThan10LessThan100Meters;
+					return "Between 10 and 100 meters across";
+				}
+				else if (SeverityBar >= 40 && SeverityBar < 60)
+				{
+					Severity = EFireSeverity.LargerThan100LessThan500Meters;
+					return "Between 100 and 500 meters across";
+				}
+				else if (SeverityBar >= 60 && SeverityBar < 80)
+				{
+					Severity = EFireSeverity.LargerThan500LessThan1000Meters;
+					return "Between 500 and 1000 meters across";
+				}
+				else if (SeverityBar >= 80)
+				{
+					Severity = EFireSeverity.LargerThan1000Meters;
+					return "OMG it's a d-d-d-d-d-d-d-firestorm!";
+				}
+				return "";
+
+			}
+		}
+
 		public ICommand ReportFireCommand
 		{
 			get
 			{
 				return new MvxCommand(async () =>
 					{
-						var result = await Mvx.Resolve<IAlertService>().AlertForFire(Lat, Lng, EFireSeverity.LargerThan100LessThan500Meters, Description);
+						Mvx.Resolve<IMvxMainThreadDispatcher>().RequestMainThreadAction(() =>
+						{
+							Mvx.Resolve<IUserDialogs>().ShowLoading();
+						});
+
+						var result = await Mvx.Resolve<IAlertService>().AlertForFire(Lat, Lng, Severity, Description).ConfigureAwait(false);
+
+						Mvx.Resolve<IMvxMainThreadDispatcher>().RequestMainThreadAction(() =>
+						{
+							Mvx.Resolve<IUserDialogs>().HideLoading();
+						});
+
+						if (!result)
+							Mvx.Resolve<IUserDialogs>().Alert("Fire Report NOT sent!");
+						else
+							Mvx.Resolve<IUserDialogs>().Alert("Fire Report sent! The fireguys are on their way, in the meantime, have a drone! Thx K Bye!");
 					});
 			}
 		}
