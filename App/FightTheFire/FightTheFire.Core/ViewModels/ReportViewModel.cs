@@ -12,12 +12,14 @@ using Services.Interfaces;
 using Domain.Enums;
 using MvvmCross.Platform.Core;
 using Acr.UserDialogs;
+using System.Threading.Tasks;
 
 namespace FightTheFire.Core.ViewModels
 {
 	public class ReportViewModel : MvxViewModel
 	{
 		private readonly MvxSubscriptionToken _token;
+		private Utils.Timer _timer;
 
 		public ReportViewModel(IMvxLocationWatcher watcher)
 		{
@@ -34,6 +36,11 @@ namespace FightTheFire.Core.ViewModels
 				Heading = e.Heading;
 			};
 			CrossCompass.Current.Start();
+
+			_timer = new Utils.Timer(async (obj) =>
+			{
+				await CheckDanger().ConfigureAwait(false);
+			}, null, 5000, 15000);
 		}
 
 		private void OnLocationMessage(LocationMessage locationMessage)
@@ -178,6 +185,18 @@ namespace FightTheFire.Core.ViewModels
 				}
 				return "";
 
+			}
+		}
+
+		private async Task CheckDanger()
+		{
+			var result = await Mvx.Resolve<IAlertService>().CheckForFire(Lat, Lng).ConfigureAwait(false);
+
+			if (result != null && !result.IsSafe)
+			{
+				// Nie veilig ohhhh sheeeeeeiiiit...
+				var message = new DangerMessage(this, result);
+				Mvx.Resolve<IMvxMessenger>().Publish(message); ;
 			}
 		}
 

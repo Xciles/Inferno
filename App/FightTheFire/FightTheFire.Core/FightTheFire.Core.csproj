@@ -40,6 +40,9 @@
     <Compile Include="Domain\Enums\EFireSeverity.cs" />
     <Compile Include="Domain\Coordinate.cs" />
     <Compile Include="Domain\FireReport.cs" />
+    <Compile Include="Domain\FireDangerResponse.cs" />
+    <Compile Include="Utils\Timer.cs" />
+    <Compile Include="Messages\DangerMessage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MvvmCross.Platform">

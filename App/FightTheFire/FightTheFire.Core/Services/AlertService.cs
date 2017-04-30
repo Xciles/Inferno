@@ -42,5 +42,32 @@ namespace Services
 			}
 			return false;
 		}
+
+		public async Task<FireDangerResponse> CheckForFire(double lat, double lng)
+		{
+			try
+			{
+				var coords = new Coordinate()
+				{
+					Latitude = lat,
+					Longitude = lng
+				};
+
+				var result = await UncommonRequestHelper.ProcessPostRequestAsync<Coordinate, FireDangerResponse>("http://inferno-web.azurewebsites.net/api/firedanger", coords, new UncommonRequestOptions()
+				{
+					Authorized = true,
+					Timeout = 12000
+				}).ConfigureAwait(false);
+
+				if (result.StatusCode == System.Net.HttpStatusCode.OK)
+					return result.Result;
+				return null;
+			}
+			catch (Exception e)
+			{
+
+			}
+			return null;
+		}
 	}
 }
