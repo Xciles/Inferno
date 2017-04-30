@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HololensHUD.Plugins", "HololensHUD.Plugins.csproj", "{FD6DB6FD-E48C-DB02-C1B8-A81738928798}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HololensHUD", "HololensHUD.csproj", "{754A1B3A-8603-621B-0940-1434B8BAFBAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HololensHUD.Editor.Plugins", "HololensHUD.Editor.Plugins.csproj", "{E97EEB28-16F6-7B8C-FAF0-50429D5EF3D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HololensHUD.Editor", "HololensHUD.Editor.csproj", "{C477C2FD-A6E4-3AEB-147B-841A4B94945B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FD6DB6FD-E48C-DB02-C1B8-A81738928798}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD6DB6FD-E48C-DB02-C1B8-A81738928798}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD6DB6FD-E48C-DB02-C1B8-A81738928798}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD6DB6FD-E48C-DB02-C1B8-A81738928798}.Release|Any CPU.Build.0 = Release|Any CPU
+		{754A1B3A-8603-621B-0940-1434B8BAFBAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{754A1B3A-8603-621B-0940-1434B8BAFBAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{754A1B3A-8603-621B-0940-1434B8BAFBAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{754A1B3A-8603-621B-0940-1434B8BAFBAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E97EEB28-16F6-7B8C-FAF0-50429D5EF3D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E97EEB28-16F6-7B8C-FAF0-50429D5EF3D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E97EEB28-16F6-7B8C-FAF0-50429D5EF3D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E97EEB28-16F6-7B8C-FAF0-50429D5EF3D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C477C2FD-A6E4-3AEB-147B-841A4B94945B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C477C2FD-A6E4-3AEB-147B-841A4B94945B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C477C2FD-A6E4-3AEB-147B-841A4B94945B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C477C2FD-A6E4-3AEB-147B-841A4B94945B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

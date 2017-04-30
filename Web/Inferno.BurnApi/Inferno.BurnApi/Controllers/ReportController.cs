@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GeoCoordinatePortable;
 using Inferno.BurnApi.Business.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Inferno.BurnApi.Data;
@@ -26,7 +27,7 @@ namespace Inferno.BurnApi.Controllers
         {
             if (report != null && report.Coordinates != null)
             {
-                report.BoundingBox = new List<Coordinate>()
+                report.BoundingBox = new List<GeoCoordinate>()
                 {
                     report.Coordinates,
                     report.Coordinates,

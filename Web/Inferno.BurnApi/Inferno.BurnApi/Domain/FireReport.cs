@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using GeoCoordinatePortable;
 using Inferno.BurnApi.Domain.Enums;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
@@ -17,33 +18,34 @@ namespace Inferno.BurnApi.Domain
         public string Description { get; set; }
 
         [NotMapped]
-        public Coordinate Coordinates
+        public GeoCoordinate Coordinates
         {
             get
             {
                 if (String.IsNullOrWhiteSpace(CoordinateAsJson))
                     return null;
 
-                return JsonConvert.DeserializeObject<Coordinate>(CoordinateAsJson);
+                return JsonConvert.DeserializeObject<GeoCoordinate>(CoordinateAsJson);
             }
             set { CoordinateAsJson = JsonConvert.SerializeObject(value); }
         }
+        [JsonIgnore]
         public string CoordinateAsJson { get; set; }
 
         [NotMapped]
-        public IList<Coordinate> BoundingBox
+        public IList<GeoCoordinate> BoundingBox
         {
             get
             {
                 if (String.IsNullOrWhiteSpace(BoundingboxAsJson))
                     return null;
 
-                return JsonConvert.DeserializeObject<IList<Coordinate>>(BoundingboxAsJson);
+                return JsonConvert.DeserializeObject<IList<GeoCoordinate>>(BoundingboxAsJson);
             }
 
             set { BoundingboxAsJson = JsonConvert.SerializeObject(value); }
         }
-
+        [JsonIgnore]
         public string BoundingboxAsJson { get; set; }
 
         public EFireSeverity FireSeverity { get; set; }
