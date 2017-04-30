@@ -11,6 +11,10 @@ namespace Inferno.BurnApi.Data
         //public InfernoDbContext() { }
         public InfernoDbContext(DbContextOptions<InfernoDbContext> builder) : base(builder) { }
 
+        public DbSet<Domain.FireReport> FireReports { get; set; }
+        public DbSet<Domain.DroneAssignment> DroneAssignments { get; set; }
+        public DbSet<Domain.Drone> Drones { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
