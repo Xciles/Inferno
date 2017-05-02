@@ -9,6 +9,8 @@ using Inferno.BurnApi.Domain.Enums;
 using Inferno.BurnApi.ServiceModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Inferno.BurnApi.Extensions;
+using Inferno.BurnApi.Utils;
 
 namespace Inferno.BurnApi.Controllers
 {
@@ -28,7 +30,7 @@ namespace Inferno.BurnApi.Controllers
         {
             var closestReport = await _fireReport.GetClosestFireReport(geoCoordinate);
 
-            if (closestReport != null)
+            if (closestReport == null)
             {
                 return new FireDangerResponse()
                 {
@@ -40,6 +42,8 @@ namespace Inferno.BurnApi.Controllers
             {
                 IsSafe = IsSafe(geoCoordinate, closestReport),
                 ClosestFireInKm = dis,
+                HeadingDegrees = geoCoordinate.GetDegrees(closestReport.Coordinates),
+                HeadingString = geoCoordinate.GetDegrees(closestReport.Coordinates).WindDegreesToDirectionString(),
                 FireReport = closestReport              
             };
         }

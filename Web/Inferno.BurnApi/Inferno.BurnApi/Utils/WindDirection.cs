@@ -13,5 +13,12 @@ namespace Inferno.BurnApi.Utils
             var index = (int)Math.Round(val % 16);
             return InfernoConstants.WindDirections[index];
         }
+
+        public static string WindDegreesToDirectionString(this double deg)
+        {
+            var val = ((deg / 22.5) + .5);
+            var index = (int)Math.Round(val % 16);
+            return InfernoConstants.WindDirections[index];
+        }
     }
 }

@@ -44,5 +44,12 @@ namespace Inferno.BurnApi.Controllers
         {
             return await _fireReport.GetAllLastHour();
         }
+
+        [HttpGet("Clear")]
+        public async Task<IActionResult> ClearAll()
+        {
+            await _fireReport.ClearAll();
+            return Ok();
+        }
     }
 }

@@ -12,5 +12,6 @@ namespace Inferno.BurnApi.Business.Interfaces
         Task<Domain.FireReport> GetLatestFireReport();
         Task<IList<Domain.FireReport>> GetAllLastHour();
         Task<Domain.FireReport> GetClosestFireReport(GeoCoordinate coord);
+        Task ClearAll();
     }
 }

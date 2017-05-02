@@ -13,5 +13,21 @@ namespace Inferno.BurnApi.Extensions
         {
             return new GeoCoordinate(coord.Latitude, coord.Longitude);
         }
+
+
+        const double TWOPI = 6.2831853071795865;
+        const double RAD2DEG = 57.2957795130823209;
+        public static double GetDegrees(this GeoCoordinate fromCoord, GeoCoordinate toCoord)
+        {        
+            if(fromCoord == toCoord)
+            {
+                return 0;
+            }
+
+            double theta = Math.Atan2(toCoord.Latitude - fromCoord.Latitude, fromCoord.Longitude - toCoord.Longitude);
+            if (theta < 0.0)
+                theta += TWOPI;
+            return RAD2DEG * theta;
+        }
     }
 }

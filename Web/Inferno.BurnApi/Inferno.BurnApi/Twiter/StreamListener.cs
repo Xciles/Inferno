@@ -23,7 +23,7 @@ namespace Inferno.BurnApi.Twiter
         private static readonly string _searchTerm = "#nasafires"; //Hardcoded yolo
         static StreamListener()
         {
-            Auth.SetUserCredentials("xntbONdOxNF7OPnbadPccUtFn", "dRjqFYRbYtguoZRslgfleldpcpmGsYfT9maBLdH99CqZRNdHoo", "858290769832140801-yPRAOfPfEZnG3rO7KITuzBip2B8aPju", "awRCMwKkMw49UYsrJbajxv0ZfzqbK50pv7cPxcEopsMtt");          
+              
         }
 
         public static async Task Init(IServiceProvider service)

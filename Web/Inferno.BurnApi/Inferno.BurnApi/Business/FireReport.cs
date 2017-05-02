@@ -46,15 +46,20 @@ namespace Inferno.BurnApi.Business
 
         public async Task<IList<Domain.FireReport>> GetAllLastHour()
         {
-            //var reports = await (from f in _context.Set<Domain.FireReport>()
-            //        .Include(x => x.DroneAssignment)
-            //                    where f.TimeStamp.ToUniversalTime() > DateTime.UtcNow.AddHours(-1)
-            //    select f).ToListAsync();
-
-            var reports = await _context.Set<Domain.FireReport>().ToListAsync();
+            var reports = await (from f in _context.Set<Domain.FireReport>()
+                                 where f.TimeStamp.ToUniversalTime() > DateTime.UtcNow.AddHours(-2)
+                                 select f).ToListAsync();
 
             return reports;
         }
 
+        public async Task ClearAll()
+        {
+            var reports = await (from f in _context.Set<Domain.FireReport>()
+                where f.TimeStamp.ToUniversalTime() > DateTime.UtcNow.AddHours(-2)
+                select f).ToListAsync();
+            _context.RemoveRange(reports);
+            await _context.SaveChangesAsync();
+        }
     }
 }

@@ -19,7 +19,7 @@ namespace Inferno.BurnApi.Controllers
         private readonly JsonSerializerSettings _jsonSerializerSettings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
 
         private readonly string _openWeatherMapUri = "http://api.openweathermap.org/data/2.5/weather?lat={0}&lon={1}&appid={2}";
-        private string _wheaterAppId = "37bafeb001ed3617ec71a179eaf594ce";
+
 
         [HttpGet("Raw/{latitude}&{longitude}")]
         public async Task<WeatherResult> GetWeather(float latitude, float longitude)

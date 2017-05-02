@@ -11,6 +11,8 @@ namespace Inferno.BurnApi.ServiceModels
     {
         public bool IsSafe { get; set; }
         public double? ClosestFireInKm { get; set; }
+        public double? HeadingDegrees { get; set; }
+        public string HeadingString { get; set; }
         public Domain.FireReport FireReport { get; set; }
     }
 }
