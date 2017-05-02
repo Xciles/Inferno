@@ -23,7 +23,7 @@ namespace Inferno.BurnApi.Twiter
         private static readonly string _searchTerm = "#nasafires"; //Hardcoded yolo
         static StreamListener()
         {
-              
+              //Configure twitter auth here
         }
 
         public static async Task Init(IServiceProvider service)
